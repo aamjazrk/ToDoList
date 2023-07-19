@@ -9,41 +9,56 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model Role{
-  id  Int @id @default(autoincrement())
-  name String
 
-  users User[] // for mapping with roleId foreignkey in User table
+enum Role {
+  NORMAL
+  PREMIUM
 }
+
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String
+  id   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String   @unique
+  name      String
 
-  role    Role    @relation(fields: [roleId], references: [id]) // declare relation foreignkey
-  roleId  Int // declare id foreignkey
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  projects Project[] // for mapping with userId foreignkey in Project table
+
+  role Role @default(NORMAL) // enum
+
+  projects  Project[] // for mapping with userId foreignkey in Project table
+  notebooks NoteBook[]
 }
 
 model Project {
-  id        Int     @id @default(autoincrement())
+  id   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user    User    @relation(fields: [userId], references: [id])  // declare relation foreignkey
-  userId  Int // declare id foreignkey
+  user   User @relation(fields: [userId], references: [id]) // declare relation foreignkey
+  userId String @db.Uuid // declare id foreignkey
 
   listtodos ListToDo[] // for mapping with projectId foreignkey in ListToDo table
 }
 
-model ListToDo{
-  id Int @id @default(autoincrement())
-  data String
+model ListToDo {
+  id        Int      @id @default(autoincrement())
+  text      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  project Project @relation(fields: [projectId],references: [id])
-  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String @db.Uuid
+}
+
+model NoteBook {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  text      String?
+
+  user   User @relation(fields: [userId], references: [id]) // declare relation foreignkey
+  userId String @db.Uuid // declare id foreignkey
 }
