@@ -38,4 +38,8 @@ next-env.d.ts
 prisma
 *.prisma
 
+#docker
 /docker-data
+
+#env
+.env
