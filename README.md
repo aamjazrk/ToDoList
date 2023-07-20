@@ -8,6 +8,31 @@ This repo is about create To-Do List web app that using Next.JS, Docker, Postgre
 
 Users have two roles which are NORMAL and PREMIUM. Normal users can only crate project and to-do list. On the other hand, premium users have some privilage to manage their own notebook for writing diary or something that they need.
 
+## TECT STACK
+- docker
+- next js
+- postgresql
+- prisma
+- cypress
+
+## Run Command
+- Run docker
+```bash
+docker compose up
+docker compose down
+```
+- Run prisma
+```bash
+npx prisma studio
+```
+- build prisma sql
+```bash
+npm prisma migrate dev
+```
+- run seed
+```bash
+npx prisma db seed  
+``` 
 
 First, run the development server:
 
@@ -40,27 +65,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## TECT STACK
-- docker
-- next js
-- postgresql
-- prisma
-- cypress
 
-## Run Command
-### Run docker
-```bash
-docker compose up
-docker compose down
-```
-#### Run prisma
-```bash
-npx prisma studio
-```
-#### build prisma sql
-```bash
-npm prisma migrate dev
-```
 
 
 
