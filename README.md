@@ -1,5 +1,14 @@
 ## Getting Started
 
+This repo is about create To-Do List web app that using Next.JS, Docker, Postgresql, Prisma, Cypress.
+
+## Database Design 
+![Alt text](image.png)
+(https://prismaliser.app/)
+
+Users have two roles which are NORMAL and PREMIUM. Normal users can only crate project and to-do list. On the other hand, premium users have some privilage to manage their own notebook for writing diary or something that they need.
+
+
 First, run the development server:
 
 ```bash
@@ -32,22 +41,21 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## TECT STACK
-# docker
-# next js
-# postgresql
-# prisma
+- docker
+- next js
+- postgresql
+- prisma
+- cypress
 
 ## Run Command
-# Run docker
+### Run docker
 docker compose up
 docker compose down
-# Run prisma
+#### Run prisma
 npx prisma studio
-# build prisma sql
+#### build prisma sql
 npm prisma migrate dev
 
-## Database Design 
-![Alt text](image.png)
-(https://prismaliser.app/)
+
 
 
