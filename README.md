@@ -3,7 +3,7 @@
 This repo is about create To-Do List web app that using Next.JS, Docker, Postgresql, Prisma, Cypress.
 
 ## Database Design 
-![Alt text](image.png)
+![Alt text](image-1.png)
 (https://prismaliser.app/)
 
 Users have two roles which are NORMAL and PREMIUM. Normal users can only crate project and to-do list. On the other hand, premium users have some privilage to manage their own notebook for writing diary or something that they need.
@@ -14,6 +14,8 @@ Users have two roles which are NORMAL and PREMIUM. Normal users can only crate p
 - postgresql
 - prisma
 - cypress
+- tailwind
+- flowbite
 
 ## Run Command
 - Run docker
@@ -27,7 +29,7 @@ npx prisma studio
 ```
 - build prisma sql
 ```bash
-npm prisma migrate dev
+npx prisma migrate dev
 ```
 - run seed
 ```bash

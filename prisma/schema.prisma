@@ -10,55 +10,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum StatusTask {
+  Open
+  InProgress
+  Urgent
+  Done
+}
+
 enum Role {
-  NORMAL
-  PREMIUM
+  Normal
+  Premium
 }
 
 model User {
-  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email    String @unique
-  name     String
-  password String
+  Id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Email    String @unique
+  Name     String
+  Password String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
 
-  role Role @default(NORMAL) // enum
+  Roles Role @default(Normal) // enum
 
-  projects  Project[] // for mapping with userId foreignkey in Project table
-  notebooks NoteBook[]
+  Projects  Project[] // for mapping with userId foreignkey in Project table
+  Notebooks NoteBook[] // for mapping with userId foreignkey in NoteBook table
 }
 
 model Project {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  Id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Title     String
+  Description String?
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+  Status StatusTask @default(Open)
 
-  user   User   @relation(fields: [userId], references: [id]) // declare relation foreignkey
-  userId String @db.Uuid // declare id foreignkey
+  Users   User   @relation(fields: [UserId], references: [Id]) // declare relation foreignkey
+  UserId String @db.Uuid // declare id foreignkey
 
-  listtodos ListToDo[] // for mapping with projectId foreignkey in ListToDo table
+  ListToDos ListToDo[] // for mapping with projectId foreignkey in ListToDo table
 }
 
 model ListToDo {
-  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  text      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  Id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Text      String?
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+  Status StatusTask @default(Open)
+  Color String @default("C09ACD")
+  Index Int @default(1)
 
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId String  @db.Uuid
+  Projects   Project @relation(fields: [ProjectId], references: [Id]) // declare relation foreignkey
+  ProjectId String  @db.Uuid // declare id foreignkey
 }
 
 model NoteBook {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  text      String?
+  Id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Title     String
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+  Text      String?
 
-  user   User   @relation(fields: [userId], references: [id]) // declare relation foreignkey
-  userId String @db.Uuid // declare id foreignkey
+  Users   User   @relation(fields: [UserId], references: [Id]) // declare relation foreignkey
+  UserId String @db.Uuid // declare id foreignkey
 }

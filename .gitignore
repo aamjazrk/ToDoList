@@ -35,9 +35,11 @@ yarn-error.log*
 next-env.d.ts
 
 #prisma
-prisma
+# prisma
 *.prisma
-
+*.sql
+*.toml
+migration*
 #docker
 /docker-data
 
