@@ -49,12 +49,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Run Command
 ### Run docker
+```bash
 docker compose up
 docker compose down
+```
 #### Run prisma
+```bash
 npx prisma studio
+```
 #### build prisma sql
+```bash
 npm prisma migrate dev
+```
 
 
 
