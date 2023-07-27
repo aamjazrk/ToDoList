@@ -2,13 +2,12 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "build": "next build && npx prisma generate && npx prisma db push && npx prisma db seed",
+    "build": "next build",
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
-    "seed": "next ./prisma/seed.ts",
+    "seed": "next ./prisma/seed.mjs",
     "ts-node": "ts-node --compiler-options '{\"module\":CommonJS\"}'"
   },
   "dependencies": {
