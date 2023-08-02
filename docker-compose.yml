@@ -24,13 +24,14 @@ services:
       - .:/app
     depends_on:
       - postgres
+    entrypoint: sh -c "npm run dev"
     command: npm run dev
     restart: unless-stopped
 
   prisma-postgres-api:
     build:
       context: .
-      dockerfile: Dockerfile.be
+      dockerfile: Dockerfile
     container_name: prisma-postgres-api
     depends_on:
       - postgres

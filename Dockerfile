@@ -8,11 +8,15 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+
 
 # Copy the rest of the application code
 COPY . .
 
+# RUN rm -r /app/node_modules
+
+RUN npm install
+RUN npm rebuild bcrypt 
 # # Build the Next.js application
 # RUN npm run build
 

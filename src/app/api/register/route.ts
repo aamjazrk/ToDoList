@@ -5,8 +5,16 @@ import { NextResponse } from 'next/server'
 export async function POST(req: Request) {
   try {
     const { email, password,name } = await req.json()
-    const hashed = await hash(password, 12)
 
+    const exist_user = await prisma.user.findFirst({
+      where:{
+        Email: email
+      }
+    })
+    if( exist_user){
+      return NextResponse.json({error: "This Email already used"},{status:400})
+    }
+    const hashed = await hash(password, 12)
     const user = await prisma.user.create({
       data: {
         Email: email,
@@ -16,6 +24,8 @@ export async function POST(req: Request) {
     })
 
     return NextResponse.json({
+      message: "User created successfully",
+      success: true,
       user: {
         email: user.Email
       }
