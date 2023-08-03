@@ -1,5 +1,5 @@
-import './globals.css'
-import { Providers } from './providers' 
+import '../globals.css'
+import { Providers } from '../providers' 
 import NavbarWithCTAButton  from '@/components/ui/navbar'
 export const metadata = {
   title: 'Create Next App',
@@ -14,8 +14,8 @@ export default function RootLayout({
   return (
     
     <html lang="en">
-      {/* <NavbarWithCTAButton/> */}
-      <body>
+      <NavbarWithCTAButton/>
+      <body className="pt-20">
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { compare } from 'bcrypt'
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { signOut } from 'next-auth/react'
 // import EmailProvider from "next-auth/providers/email";
 // export const authOptions: NextAuthOptions = {
 //  pages:{
@@ -47,7 +48,8 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 
 export const authOptions: NextAuthOptions = {
   pages: {
-    signIn: '/login'
+    signIn: '/login',
+    signOut: '/'
   },
   session: {
     strategy: 'jwt'
@@ -123,6 +125,13 @@ export const authOptions: NextAuthOptions = {
       }
       return token
     },
+    // async redirect({ url, baseUrl }) {
+    //   // Allows relative callback URLs
+    //   if (url.startsWith("/")) return `${baseUrl}${url}`
+    //   // Allows callback URLs on the same origin
+    //   else if (new URL(url).origin === baseUrl) return url
+    //   return baseUrl
+    // }
   }
 }
 

@@ -18,21 +18,20 @@
 // }
 import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
-import { LoginButton, LogoutButton } from './auth'
-import { User } from './user'
-
+import LoginPage from './(auth)/login/page'
 export default async function Home() {
   const session = await getServerSession(authOptions)
 
   return (
     <main>
-      <LoginButton />
+      <LoginPage/>
+      {/* <LoginButton />
       <LogoutButton />
       <h2>Server Session</h2>
       <pre>{JSON.stringify(session)}</pre>
-      <h2>Client Call</h2>
+      <h2>Client Call</h2> */}
       
-      <User />
+      {/* <User /> */}
     </main>
   )
 }

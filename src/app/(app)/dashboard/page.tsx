@@ -1,3 +1,3 @@
 export default async function Dashboard() {
-    return <>Super Secret Page</>
+    return( <div>Super Secret Page</div>)
   }

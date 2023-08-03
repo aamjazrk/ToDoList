@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert } from '@/components/ui/alert'
+// import { Alert } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -76,7 +76,7 @@ export const Form = () => {
           type="password"
         />
       </div>
-      {error && <Alert>{error}</Alert>}
+      {/* {error && <Alert>{error}</Alert>} */}
       <div className="w-full">
         <Button className="w-full" size="lg">
           Login
