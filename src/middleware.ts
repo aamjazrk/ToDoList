@@ -30,5 +30,5 @@ export function middleware(request: Request) {
 }
 
 export const config = {
-    matcher: '/dashboard',
+    matcher: '/sirin',
 }

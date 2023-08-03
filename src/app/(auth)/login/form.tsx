@@ -15,7 +15,8 @@ export const Form = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'
+  // const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'
+  const callbackUrl = '/dashboard'
   const [loading, setLoading] = React.useState(false);
   // const onLogin = async (e: React.FormEvent) => {
   //   try {

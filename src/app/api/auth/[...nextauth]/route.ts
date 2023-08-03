@@ -75,7 +75,8 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user) {
-          return null
+          console.log('user not found')
+          return "user not found"
         }
 
         const isPasswordValid = await compare(
@@ -84,6 +85,7 @@ export const authOptions: NextAuthOptions = {
         )
 
         if (!isPasswordValid) {
+          console.log('wrong password')
           return null
         }
 
@@ -91,8 +93,9 @@ export const authOptions: NextAuthOptions = {
           id: user.Id + '',
           email: user.Email,
           name: user.Name,
-          randomKey: 'Hey cool'
         }
+        
+
       }
     })
   ],
@@ -119,7 +122,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
       return token
-    }
+    },
   }
 }
 
