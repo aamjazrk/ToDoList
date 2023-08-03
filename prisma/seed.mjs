@@ -64,6 +64,7 @@ const load = async () => {
         UserId: Id1.Id
       },
     ];
+    
 
     await prisma.project.createMany({
       data: projects1,
