@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import {compare} from "bcrypt";
 import jwt from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
+import { compare } from 'bcrypt'
 
-
-export async function POST(request: NextRequest){
+export async function POST(req: NextRequest,res: NextResponse){
     try {
 
-        const reqBody = await request.json()
+        const reqBody = await req.json()
         const {email, password} = reqBody;
         console.log(reqBody);
 
@@ -18,7 +17,8 @@ export async function POST(request: NextRequest){
             }
         })
         if(!user){
-            return NextResponse.json({error: "User does not exist"}, {status: 400})
+            // return res.status(401).json({message: 'User does not exist'})
+            return NextResponse.json({message: 'User does not exist'},{status:401})
         }
         console.log("user exists");
         
@@ -26,33 +26,33 @@ export async function POST(request: NextRequest){
         //check if password is correct
         const validPassword = await compare(password, user.Password)
         if(!validPassword){
-            return NextResponse.json({error: "Invalid password"}, {status: 400})
+            return NextResponse.json({message: 'Invalid password'},{status:401}) 
         }
         console.log(user);
         
-        //create token data
-        const tokenData = {
+        //create payload data
+        const payload = {
             id: user.Id,
             name: user.Name,
-            email: user.Email
+            email: user.Email,
+            role: user.Roles
         }
         //create token
-        const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {expiresIn: "1d"})
+        // const token = await jwt.sign(payload, '123456', {expiresIn: "1h"})
 
-        const response = NextResponse.json({
+        return NextResponse.json({
             message: "Login successful",
             success: true,
+            // accessToken: token,
+            expiresIn: 3600000, // 1 hour in milliseconds
+            status:200,
+            user:payload
         })
-        response.cookies.set("token", token, {
-            httpOnly: true, 
-            
-        })
-        console.log(response);
-        console.debug(response)
-        return response;
         
 
-    } catch (error: any) {
-        return NextResponse.json({error: error.message}, {status: 500})
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({message:'Internal Server Error',success:false},{status:500});
+        
     }
 }

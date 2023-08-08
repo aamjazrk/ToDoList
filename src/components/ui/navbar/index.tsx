@@ -1,8 +1,6 @@
 'use client';
 
-import { sign } from 'crypto';
-import { Navbar, Button } from 'flowbite-react';
-import { signOut } from 'next-auth/react';
+import { Button, Navbar} from 'flowbite-react';
 import { LogoutButton } from '@/app/auth';
 export default function DefaultNavbar() {
   return (
@@ -14,7 +12,9 @@ export default function DefaultNavbar() {
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
-        <LogoutButton />
+       <Button><LogoutButton /></Button>
+       
+
       </div>
       <Navbar.Collapse className='right-0'>
         {/* Your existing Navbar links here */}
@@ -22,16 +22,16 @@ export default function DefaultNavbar() {
           active
           href="/"
         >
-          <p>
+          <div>
             Home
-          </p>
+          </div>
         </Navbar.Link>
         <Navbar.Link
           href="/dashboard"
         >
-          <p>
+          <div>
             Dashboard
-          </p>
+          </div>
         </Navbar.Link>
         <Navbar.Link href="/project">
           Project

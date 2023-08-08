@@ -1,139 +1,111 @@
-import { prisma } from '@/lib/prisma'
-import { compare } from 'bcrypt'
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { signOut } from 'next-auth/react'
-// import EmailProvider from "next-auth/providers/email";
-// export const authOptions: NextAuthOptions = {
-//  pages:{
-//   signIn: '/login'
-//  },
-//  session:{
-//   strategy: 'jwt'
-//  },
-//  providers: [
-//   CredentialsProvider({
-//     name: 'Sign in',
-//     credentials: {
-//       email: {
-//         label: 'Email',
-//         type: 'email',
-//         placeholder: 'hello@example.com'
-//       },
-//       password: { label: 'Password', type: 'password' }
-//     },
-//   try {
-//     async authorize(credentials){
-//       if(!credentials?.email || !credentials.password){
-//         return null
+import { PrismaAdapter } from "@auth/prisma-adapter";
+// next-auth.d.ts
 
-//       }
-  
-//     const user = await prisma.user.findUnique({
-//       where: {
-//         email: credentials.email
-//       }
-//     })
+import { Session } from "next-auth";
 
-//     if (!user) {
-//       return null
-//     }
-    
-//   } catch (error) {
-//     return null
-//   }
-//   })]}
-
-// export default NextAuth(authOptions);
-
-export const authOptions: NextAuthOptions = {
-  pages: {
-    signIn: '/login',
-    signOut: '/'
-  },
-  session: {
-    strategy: 'jwt'
-  },
-  providers: [
-    CredentialsProvider({
-      name: 'Sign in',
-      credentials: {
-        email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'hello@example.com'
-        },
-        password: { label: 'Password', type: 'password' }
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
-          return null
-        }
-
-        const user = await prisma.user.findUnique({
-          where: {
-            Email: credentials.email
-          }
-        })
-
-        if (!user) {
-          console.log('user not found')
-          return "user not found"
-        }
-
-        const isPasswordValid = await compare(
-          credentials.password,
-          user.Password
-        )
-
-        if (!isPasswordValid) {
-          console.log('wrong password')
-          return null
-        }
-
-        return {
-          id: user.Id + '',
-          email: user.Email,
-          name: user.Name,
-        }
-        
-
-      }
-    })
-  ],
-  callbacks: {
-    session: ({ session, token }) => {
-      console.log('Session Callback', { session, token })
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          randomKey: token.randomKey
-        }
-      }
-    },
-    jwt: ({ token, user }) => {
-      console.log('JWT Callback', { token, user })
-      if (user) {
-        const u = user as unknown as any
-        return {
-          ...token,
-          id: u.id,
-          randomKey: u.randomKey
-        }
-      }
-      return token
-    },
-    // async redirect({ url, baseUrl }) {
-    //   // Allows relative callback URLs
-    //   if (url.startsWith("/")) return `${baseUrl}${url}`
-    //   // Allows callback URLs on the same origin
-    //   else if (new URL(url).origin === baseUrl) return url
-    //   return baseUrl
-    // }
+declare module "next-auth" {
+  interface SessionTemp {
+    user: {
+      name?: string;
+      email?: string;
+      role?: string; // Add the 'role' property here with the appropriate type
+    };
   }
 }
 
+export const authOptions: NextAuthOptions = {
+    pages: {
+        signIn: '/login',
+        signOut: '/'
+    },
+    session: {
+        strategy: 'jwt'
+    },
+    providers: [
+        CredentialsProvider({
+            id: "email-login", // mappingbcredential id
+            name: 'Signin',
+            credentials: {
+                email: {
+                    label: 'Email',
+                    type: 'email'
+                },
+                password: { label: 'Password', type: 'password' }
+            },
+
+            async authorize(credentials) {
+                const { email, password } = credentials
+                const res = await fetch("http://localhost:3000/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                    }),
+                });
+
+                try {
+                    const data = await res.json();
+                    console.log(data)
+                    if (data.status == '200') {
+                        console.log('roleeeeeeeee  ',data.user.role)
+                        return {
+                            id: data.user.id + '',
+                            email: data.user.email,
+                            name: data.user.name,
+                            role: data.user.role,
+                            randomKey: 'Hey cool'
+                          }
+                    }
+                    console.log("Authorization error 1: ", data.message)
+                    return null // nextauth.js can only return object,null, throw error -> If you return null then an error will be displayed advising the user to check their details.
+                    // https://next-auth.js.org/providers/credentials
+                } catch (error) {
+                    console.log(error)
+                    return null
+                }
+            }
+
+        }),
+    ],
+    callbacks: {
+        session: ({ session, token }) => {
+          console.log('Session Callback', { session, token })
+          return {
+            ...session,
+            user: {
+              ...session.user,
+              id: token.id,
+              randomKey: token.randomKey,
+              
+            },
+            role: token.role
+          }
+        },
+        jwt: ({ token, user }) => {
+          console.log('JWT Callback', { token, user })
+          if (user) {
+            const u = user as unknown as any
+            return {
+              ...token,
+              id: u.id,
+              randomKey: u.randomKey,
+              role: token.role
+            }
+          }
+          return token
+        }
+        // jwt: async ({ token, user }) => {
+        //     user && (token.user = user);
+        //     return Promise.resolve(token);
+        //  },
+      }
+    
+}
+
 const handler = NextAuth(authOptions)
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST } // predential must declare method

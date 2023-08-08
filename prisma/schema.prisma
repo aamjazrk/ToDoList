@@ -31,11 +31,47 @@ model User {
 
   CreatedAt DateTime @default(now())
   UpdatedAt DateTime @updatedAt
-
+  emailVerified DateTime? @default(now())
   Roles Role @default(Normal) // enum
-
+  Accounts      Account[]
+  Sessions      Session[]
   Projects  Project[] // for mapping with userId foreignkey in Project table
   Notebooks NoteBook[] // for mapping with userId foreignkey in NoteBook table
+}
+model Account {
+  Id                 String  @id @default(uuid())
+  UserId             String @db.Uuid
+  Type               String
+  Provider           String
+  ProviderAccountId  String
+  Refresh_token      String?  @db.Text
+  Access_token       String?  @db.Text
+  Expires_at         Int?
+  Token_type         String?
+  Scope              String?
+  Id_token           String?  @db.Text
+  Session_state      String?
+
+  user User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+
+  @@unique([Provider, ProviderAccountId])
+}
+
+model Session {
+  Id           String   @id @default(cuid())
+  SessionToken String   @unique
+  UserId       String @db.Uuid
+  Expires      DateTime
+  User         User     @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+}
+
+
+model VerificationToken {
+  Identifier String
+  Token      String   @unique
+  Expires    DateTime
+
+  @@unique([Identifier, Token])
 }
 
 model Project {

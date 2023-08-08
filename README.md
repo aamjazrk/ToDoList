@@ -8,7 +8,7 @@ This repo is about create To-Do List web app that using Next.JS, Docker, Postgre
 
 Users have two roles which are NORMAL and PREMIUM. Normal users can only crate project and to-do list. On the other hand, premium users have some privilage to manage their own notebook for writing diary or something that they need.
 
-## TECT STACK
+## TECH STACK
 - docker
 - next js
 - postgresql

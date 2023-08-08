@@ -38,11 +38,11 @@ export const Form = () => {
   const onLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const res = await signIn('credentials', {
+      const res = await signIn('email-login', {
         redirect: false,
         email,
         password,
-        callbackUrl
+        // callbackUrl
       })
       console.log('Res', res)
       if (!res?.error) {
