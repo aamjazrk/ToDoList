@@ -1,32 +1,34 @@
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcrypt'
 import { NextRequest, NextResponse } from 'next/server'
-
-export async function DELETE(req: NextRequest) {
-
-    const { projectId} = await req.json()
+type Props = {
+  params: {
+      id: string
+  }
+}
+export async function DELETE(req: NextRequest, { params: { id } }: Props) {
     if (req.method == 'DELETE') {
         try { 
         // Process a POST request
-        const exist_projects = await prisma.project.findFirst({
+        const exist_todos = await prisma.listToDo.delete({
             where:{
-                Id: projectId
+                Id: id
             }
         })
-        if(!exist_projects){
-            return NextResponse.json({error:'project not found', success: false, message:exist_projects},{status:403})
+        if(!exist_todos){
+            return NextResponse.json({error:'todolist not found', success: false, message:exist_todos},{status:403})
         }
-        const delete_projects = await prisma.project.delete({
+        const delete_todos = await prisma.listToDo.delete({
             where:{
-                Id : projectId
+                Id :id
             }
           })
-          if( !delete_projects){
-            return NextResponse.json({error:'cannot delete project', success: false, message:delete_projects},{status:403})
+          if( !delete_todos){
+            return NextResponse.json({error:'cannot delete todolist', success: false, message:delete_todos},{status:403})
           }
-          const projects =JSON.stringify(delete_projects)
+          const projects =JSON.stringify(delete_todos)
           return NextResponse.json({
-            message: "delete projecy successfully",
+            message: "delete todo successfully",
             success: true,
             project: projects
           },{

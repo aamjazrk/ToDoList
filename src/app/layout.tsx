@@ -18,7 +18,7 @@ export default function RootLayout({
 
       <body className="pt-19">
         <DynamicNavbar />
-        <Providers><div id="root">{children}</div></Providers>
+        <Providers><div  id="root">{children}</div></Providers>
       </body>
     </html>
   )

@@ -1,15 +1,19 @@
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcrypt'
 import { NextRequest, NextResponse } from 'next/server'
-
-export async function POST(req: NextRequest) {
+type Props = {
+  params: {
+      id: string
+  }
+}
+export async function GET(req: Request, { params: { id } }: Props) {
   try { 
-    const { userId } = await req.json()
-    if (req.method == 'POST') {
+    if (req.method == 'GET') {
+      const origin = req.headers.get('origin')
         // Process a POST request
         const exist_projects = await prisma.project.findMany({
             where:{
-              UserId: userId
+              UserId: id
             }
           })
           if( !exist_projects){
@@ -18,14 +22,11 @@ export async function POST(req: NextRequest) {
           return NextResponse.json({
             message: "Find projecy successfully",
             success: true,
-            project: exist_projects
+            project: JSON.stringify(exist_projects)
           },{
               status:200
           })
       }
-    
-
-    
   } catch (err: any) {
     return new NextResponse(
       JSON.stringify({

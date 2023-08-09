@@ -1,26 +1,29 @@
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcrypt'
 import { NextRequest, NextResponse } from 'next/server'
+type Props = {
+  params: {
+      id: string
+  }
+}
+export async function GET(req: NextRequest, { params: { id } }: Props) {
 
-export async function POST(req: NextRequest) {
-
-    const { userId } = await req.json()
-    if (req.method == 'POST') {
+    if (req.method == 'GET') {
         try { 
         // Process a GET request
-        const exist_projects = await prisma.project.findMany({
+        const exist_todos = await prisma.listToDo.findMany({
             where:{
-              UserId: userId
+              ProjectId: id
             }
           })
-          if( !exist_projects){
-            return NextResponse.json({project: exist_projects, success: true, message:'don\'t have any project'},{status:200})
+          if( !exist_todos){
+            return NextResponse.json({project: exist_todos, success: true, message:'don\'t have any todo'},{status:200})
           }
-          const projects =JSON.stringify(exist_projects)
+          const todos =JSON.stringify(exist_todos)
           return NextResponse.json({
-            message: "Find projecy successfully",
+            message: "Find todo successfully",
             success: true,
-            project: projects
+            project: todos
           },{
               status:200
           })

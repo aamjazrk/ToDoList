@@ -1,8 +1,8 @@
 // nextauth.d.ts
 import { DefaultSession, DefaultUser } from "next-auth";
 export enum Role {
-  user = "user",
-  admin = "admin",
+  Premium = "Premium",
+  Normal = "Normal",
 }
 interface IUser extends DefaultUser {
   /**

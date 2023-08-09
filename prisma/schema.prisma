@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
@@ -29,75 +29,37 @@ model User {
   Name     String
   Password String
 
-  CreatedAt DateTime @default(now())
-  UpdatedAt DateTime @updatedAt
-  emailVerified DateTime? @default(now())
-  Roles Role @default(Normal) // enum
-  Accounts      Account[]
-  Sessions      Session[]
+  CreatedAt DateTime   @default(now())
+  UpdatedAt DateTime   @updatedAt
+  Roles     Role       @default(Normal) // enum
   Projects  Project[] // for mapping with userId foreignkey in Project table
   Notebooks NoteBook[] // for mapping with userId foreignkey in NoteBook table
 }
-model Account {
-  Id                 String  @id @default(uuid())
-  UserId             String @db.Uuid
-  Type               String
-  Provider           String
-  ProviderAccountId  String
-  Refresh_token      String?  @db.Text
-  Access_token       String?  @db.Text
-  Expires_at         Int?
-  Token_type         String?
-  Scope              String?
-  Id_token           String?  @db.Text
-  Session_state      String?
-
-  user User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
-
-  @@unique([Provider, ProviderAccountId])
-}
-
-model Session {
-  Id           String   @id @default(cuid())
-  SessionToken String   @unique
-  UserId       String @db.Uuid
-  Expires      DateTime
-  User         User     @relation(fields: [UserId], references: [Id], onDelete: Cascade)
-}
-
-
-model VerificationToken {
-  Identifier String
-  Token      String   @unique
-  Expires    DateTime
-
-  @@unique([Identifier, Token])
-}
 
 model Project {
-  Id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  Title     String
+  Id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Title       String
   Description String?
-  CreatedAt DateTime @default(now())
-  UpdatedAt DateTime @updatedAt
-  Status StatusTask @default(Open)
+  CreatedAt   DateTime   @default(now())
+  UpdatedAt   DateTime   @updatedAt
+  Status      StatusTask @default(Open)
 
-  Users   User   @relation(fields: [UserId], references: [Id]) // declare relation foreignkey
+  Users  User   @relation(fields: [UserId], references: [Id]) // declare relation foreignkey
   UserId String @db.Uuid // declare id foreignkey
 
   ListToDos ListToDo[] // for mapping with projectId foreignkey in ListToDo table
 }
 
 model ListToDo {
-  Id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   Text      String?
-  CreatedAt DateTime @default(now())
-  UpdatedAt DateTime @updatedAt
-  Status StatusTask @default(Open)
-  Color String @default("C09ACD")
-  Index Int @default(1)
+  CreatedAt DateTime   @default(now())
+  UpdatedAt DateTime   @updatedAt
+  Status    StatusTask @default(Open)
+  Color     String     @default("C09ACD")
+  Index     Int        @default(1)
 
-  Projects   Project @relation(fields: [ProjectId], references: [Id]) // declare relation foreignkey
+  Projects  Project @relation(fields: [ProjectId], references: [Id]) // declare relation foreignkey
   ProjectId String  @db.Uuid // declare id foreignkey
 }
 
@@ -108,6 +70,6 @@ model NoteBook {
   UpdatedAt DateTime @updatedAt
   Text      String?
 
-  Users   User   @relation(fields: [UserId], references: [Id]) // declare relation foreignkey
+  Users  User   @relation(fields: [UserId], references: [Id]) // declare relation foreignkey
   UserId String @db.Uuid // declare id foreignkey
 }
