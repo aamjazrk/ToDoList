@@ -1,12 +1,25 @@
-import { type DefaultSession } from "next-auth";
-
+// nextauth.d.ts
+import { DefaultSession, DefaultUser } from "next-auth";
+export enum Role {
+  user = "user",
+  admin = "admin",
+}
+interface IUser extends DefaultUser {
+  /**
+   * Role of user
+   */
+  role?: Role;
+  /**
+   * Field to check whether a user has a subscription
+   */
+  subscribed?: boolean;
+}
 declare module "next-auth" {
-    interface Session {
-        user: {
-            id: string;
-            name: string;
-            email: string;
-            role: string;
-        } & DefaultSession['user'];
-    }
+  interface User extends IUser {}
+  interface Session {
+    user?: User;
+  }
+}
+declare module "next-auth/jwt" {
+  interface JWT extends IUser {}
 }

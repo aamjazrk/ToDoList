@@ -19,7 +19,7 @@ export default async function Dashboard() {
                 <pre>{JSON.stringify(session)}</pre>
                 <h1 className='text-2xl font-bold text-black-200'>Next JS 13 Background Image with Tailwind CSS </h1>
                 <p className='mt-4 text-sm text-black'>lorem ipsom Next JS 13 Background Image with Tailwind CSS</p>
-                <p> Hi <User /> </p>
+                <div> Hi <User /> </div>
             </div>
         </div>
     )

@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
     },
     providers: [
         CredentialsProvider({
-            id: "email-login", // mappingbcredential id
+            id: "email-login", // mapping credential id
             name: 'Signin',
             credentials: {
                 email: {
@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
                     const data = await res.json();
                     console.log(data)
                     if (data.status == '200') {
-                        console.log('roleeeeeeeee  ',data.user.role)
+                        console.log('role: ',data.user.role)
                         return {
                             id: data.user.id + '',
                             email: data.user.email,
@@ -73,37 +73,26 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        session: ({ session, token }) => {
-          console.log('Session Callback', { session, token })
-          return {
-            ...session,
-            user: {
-              ...session.user,
-              id: token.id,
-              randomKey: token.randomKey,
-              
+
+            async jwt({ token, user }) {
+              /* Step 1: update the token based on the user object */
+              if (user) {
+                token.role = user.role;
+                token.id = user.id;
+              }
+              return token;
             },
-            role: token.role
-          }
-        },
-        jwt: ({ token, user }) => {
-          console.log('JWT Callback', { token, user })
-          if (user) {
-            const u = user as unknown as any
-            return {
-              ...token,
-              id: u.id,
-              randomKey: u.randomKey,
-              role: token.role
-            }
-          }
-          return token
-        }
-        // jwt: async ({ token, user }) => {
-        //     user && (token.user = user);
-        //     return Promise.resolve(token);
-        //  },
-      }
+            session({ session, token }) {
+              /* Step 2: update the session.user based on the token object */
+              if (token && session.user) {
+                session.user.role = token.role;
+                session.user.id = token.id;
+              }
+              return session;
+            },
+          },
+        
+      
     
 }
 
