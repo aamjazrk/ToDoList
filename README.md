@@ -1,3 +1,16 @@
+## How to run
+- npm i (ignore patch error)
+- npm run build
+- docker compose up --build
+
+## Login with
+email : sirinya@gmail.com
+password: zaq1@wsX
+
+### www://localhost:5555 -> see database
+### www://localhost:3000 -> see website
+
+
 ## Getting Started
 
 This repo is about create To-Do List web app that using Next.JS, Docker, Postgresql, Prisma, Cypress.
@@ -7,13 +20,6 @@ This repo is about create To-Do List web app that using Next.JS, Docker, Postgre
 (https://prismaliser.app/)
 
 Users have two roles which are NORMAL and PREMIUM. Normal users can only crate project and to-do list. On the other hand, premium users have some privilage to manage their own notebook for writing diary or something that they need.
-
-## Login with
-email : sirinya@gmail.com
-password: zaq1@wsX
-
-### www://localhost:5555 -> see database
-### www://localhost:3000 -> see website
 
 ## TECH STACK
 - docker

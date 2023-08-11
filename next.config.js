@@ -2,7 +2,8 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ['@prisma/client', 'bcrypt']
+    serverComponentsExternalPackages: ['@prisma/client', 'bcrypt'],
+    swcMinify:false,
   },
   
 
