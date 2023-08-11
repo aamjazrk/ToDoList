@@ -1,12 +1,11 @@
 'use client';
 
-import { Input } from '@/components/ui/input';
-import { on } from 'events';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
+import { toast,Toaster } from "react-hot-toast";
 // import { Alert } from '@/components/ui/alert'
 export const RegisterForm = () => {
     const router = useRouter()
@@ -31,17 +30,20 @@ export const RegisterForm = () => {
                 }
             })
             if (res.ok) {
+                toast.success("Register successful");
                 signIn()
             } else {
+                toast.error("This email is already used");
                 setError((await res.json()).error)
             }
-        } catch (error: any) {
+        } catch (error) {
             setError(error?.message)
         }
     }
 
     return (
         <form onSubmit={onSubmit} className="space-y-12 w-full sm:w-[400px]">
+            <div><Toaster/></div>
             <div className="grid items-center gap-1.5">
                 <div className="mb-2 block ">
                     <Label htmlFor="name">Name</Label>

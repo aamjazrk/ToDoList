@@ -7,7 +7,6 @@ import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast,Toaster } from "react-hot-toast";
 import React, { useState, useEffect } from 'react'
-import { setUserFromSession } from '@/components/services/setSession'
 import { useSession } from 'next-auth/react';
 export const Form = () => {
   const router = useRouter()
@@ -40,7 +39,6 @@ export const Form = () => {
     } catch (err: any) { }
   }
   useEffect(() => {
-    // This code will run when the component mounts
     if (session?.user?.id) {
       localStorage.setItem('id', String(session.user.id));
     }

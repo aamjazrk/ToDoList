@@ -22,11 +22,10 @@ const ProjectHandle: React.FC<ProjectProps> = ({ project }) => {
         Title: project.Title,
         Description: project.Description,
         Status: project.Status,
-        UserId:project.UserId
+        UserId: project.UserId
     });
-    const [titleToEdit, setTitleToEdit] = useState<String>(project.Title)
-    const [statusToEdit, setStatusToEdit] = useState<String>(project.Status)
-    const { data: session } = useSession();
+    const [titleToEdit, setTitleToEdit] = useState<string>(project.Title)
+    const [statusToEdit, setStatusToEdit] = useState<string>(project.Status)
     const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
         await editProject(newProjectValue);
@@ -63,6 +62,24 @@ const ProjectHandle: React.FC<ProjectProps> = ({ project }) => {
                                 placeholder='Type Title here'
                                 className='input input-bordered w-full'
                             />
+                            <input
+                                value={titleToEdit}
+                                onChange={(e) => setTitleToEdit(e.target.value)}
+                                type='text'
+                                placeholder='Type Title here'
+                                className='input input-bordered w-full'
+                            />
+                            <div className="modal-action ">
+                                <select className="select select-info w-full"
+                                    value={statusToEdit}
+                                    onChange={(e) => { setStatusToEdit(e.target.value) }}
+                                >
+                                    <option value="Open">Open</option>
+                                    <option value="InProgress">InProgress</option>
+                                    <option value="Urgent">Urgent</option>
+                                    <option value="Done">Done</option>
+                                </select>
+                            </div>
                             <button type='submit' className='btn'>
                                 Submit
                             </button>
