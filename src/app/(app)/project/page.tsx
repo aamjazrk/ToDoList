@@ -11,10 +11,12 @@ export default function Project() {
   const getProject = async () => {
     let id = localStorage.getItem('id');
     let res = await getAllbyUser(id);
-    console.log('API Response:', res); 
-    const projectArray = Object.values(res.project);
-    setProject(res);
-    console.log('check project set:',project)
+    console.log(res);
+    if (res) {
+      setProject(res);
+      console.log('check project set:', project)
+    }
+
   };
   useEffect(() => {
     getProject()
@@ -28,8 +30,8 @@ export default function Project() {
       <div className='text-center my-5 flex flex-col gap-4'>
         <h1 className='text-2xl font-bold'>Todo List App</h1>
         <AddTask />
-        </div >
-        {/* <ProjectList tasks={project} /> */}
+      </div >
+      <ProjectList tasks={project} />
     </main>
 
   )
