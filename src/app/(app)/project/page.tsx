@@ -31,7 +31,7 @@ export default function Project() {
         <h1 className='text-2xl font-bold'>Todo List App</h1>
         <AddTask />
       </div >
-      <ProjectList tasks={project} />
+{/*       <ProjectList tasks={project} /> */}
     </main>
 
   )
