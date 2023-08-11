@@ -19,12 +19,11 @@ export async function GET(req: Request, { params: { id } }: Props) {
           if( !exist_projects){
             return NextResponse.json({project: exist_projects, success: true, message:'don\'t have any project'},{status:200})
           }
+          console.log(exist_projects)
           return NextResponse.json({
-            message: "Find projecy successfully",
-            success: true,
-            project: JSON.stringify(exist_projects)
-          },{
-              status:200
+            // message: "Find projecy successfully",
+            // success: true,
+            project: exist_projects
           })
       }
   } catch (err: any) {

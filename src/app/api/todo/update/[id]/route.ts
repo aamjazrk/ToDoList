@@ -16,7 +16,7 @@ export async function PUT(req: Request, { params: { id } }: Props) {
             });
 
             if (!existingTodo) {
-                return NextResponse.json({ error: 'todolist not found' }, { status: 403 });
+                return NextResponse.json({ error: 'todolist not found' }, { status: 400 });
             }
 
         

@@ -9,7 +9,7 @@
 /coverage
 
 # next.js
-/.next/
+# /.next/
 /out/
 
 # production
@@ -32,7 +32,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+# next-env.d.ts
 
 #prisma
 # prisma
@@ -44,4 +44,4 @@ migration*
 /docker-data
 
 #env
-.env
+# .env

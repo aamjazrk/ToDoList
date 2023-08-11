@@ -14,13 +14,6 @@ export default async function Dashboard() {
                     fill
                 />
             </div>
-            <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                <h2>Server Session</h2>
-                <pre>{JSON.stringify(session)}</pre>
-                <h1 className='text-2xl font-bold text-black-200'>Next JS 13 Background Image with Tailwind CSS </h1>
-                <p className='mt-4 text-sm text-black'>lorem ipsom Next JS 13 Background Image with Tailwind CSS</p>
-                <div> Hi <User /> </div>
-            </div>
         </div>
     )
 }

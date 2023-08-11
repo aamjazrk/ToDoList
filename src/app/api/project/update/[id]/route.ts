@@ -16,7 +16,7 @@ export async function PUT(req: Request, { params: { id } }: Props) {
             });
 
             if (!existingProject) {
-                return NextResponse.json({ error: 'Project not found' }, { status: 403 });
+                return NextResponse.json({ error: 'Project not found' }, { status: 400 });
             }
 
         

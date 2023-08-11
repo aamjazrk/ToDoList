@@ -1,10 +1,10 @@
 import { UserInterface } from "./IUser";
 export type ProjectInterface = {
-    Id: String;
-    Title: String;
-    Description: String;
-    Status: String;
-    UserId: String;
+    Id: string;
+    Title: string;
+    Description: string;
+    Status: string;
+    UserId: string;
     Users: UserInterface;
   
   }

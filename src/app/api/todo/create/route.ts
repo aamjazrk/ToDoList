@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
             }
           })
           if( !create_todos){
-            return NextResponse.json({message: create_todos, success: false, error:'cannot create project'},{status:403})
+            return NextResponse.json({message: create_todos, success: false, error:'cannot create project'},{status:400})
           }
           const todos =JSON.stringify(create_todos)
           return NextResponse.json({

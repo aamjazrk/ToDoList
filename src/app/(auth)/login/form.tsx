@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -7,8 +7,8 @@ import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { toast,Toaster } from "react-hot-toast";
 import React, { useState, useEffect } from 'react'
-import axios from "axios";
-import { Toast } from 'flowbite-react'
+import { setUserFromSession } from '@/components/services/setSession'
+import { useSession } from 'next-auth/react';
 export const Form = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -17,6 +17,7 @@ export const Form = () => {
   const searchParams = useSearchParams()
   const callbackUrl = '/dashboard'
   const [loading, setLoading] = React.useState(false);
+  const { data: session } = useSession();
 
   const onLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,30 +39,40 @@ export const Form = () => {
       }
     } catch (err: any) { }
   }
+  useEffect(() => {
+    // This code will run when the component mounts
+    if (session?.user?.id) {
+      localStorage.setItem('id', String(session.user.id));
+    }
+  }, [onLogin]);
   return (
     
-    <form onSubmit={onLogin} className="space-y-12 w-full sm:w-[400px]">
+    <form onSubmit={onLogin} className="space-y-12 w-full sm:w-[400px] text-gray-950">
+      
+
       <div><Toaster/></div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1.5  text-gray-950">
         <Label htmlFor="email">Email</Label>
         <Input
-          className="w-full"
+          className="w-full text-gray-950"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           id="email"
           type="email"
+          style={{ color: 'black' }}
         />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1.5 text-gray-950">
         <Label htmlFor="password">Password</Label>
         <Input
-          className="w-full"
+          className="w-full text-gray-950"
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           id="password"
           type="password"
+          style={{ color: 'black' }}
         />
       </div>
       {/* {error && <Alert>{error}</Alert>} */}

@@ -4,19 +4,20 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
 
-    const { userId,title,description} = await req.json()
+    const { UserId,Title,Description,Status} = await req.json()
     if (req.method == 'POST') {
         try { 
         // Process a POST request
         const create_projects = await prisma.project.create({
             data:{
-                UserId:userId,
-                Title:title,
-                Description:description
+                UserId:UserId,
+                Title:Title,
+                Description:Description,
+                Status:Status
             }
           })
           if( !create_projects){
-            return NextResponse.json({project: create_projects, success: false, error:'cannot create project'},{status:403})
+            return NextResponse.json({project: create_projects, success: false, error:'cannot create project'},{status:400})
           }
           const projects =JSON.stringify(create_projects)
           return NextResponse.json({

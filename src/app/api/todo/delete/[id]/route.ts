@@ -16,7 +16,7 @@ export async function DELETE(req: NextRequest, { params: { id } }: Props) {
             }
         })
         if(!exist_todos){
-            return NextResponse.json({error:'todolist not found', success: false, message:exist_todos},{status:403})
+            return NextResponse.json({error:'todolist not found', success: false, message:exist_todos},{status:400})
         }
         const delete_todos = await prisma.listToDo.delete({
             where:{
@@ -24,7 +24,7 @@ export async function DELETE(req: NextRequest, { params: { id } }: Props) {
             }
           })
           if( !delete_todos){
-            return NextResponse.json({error:'cannot delete todolist', success: false, message:delete_todos},{status:403})
+            return NextResponse.json({error:'cannot delete todolist', success: false, message:delete_todos},{status:400})
           }
           const projects =JSON.stringify(delete_todos)
           return NextResponse.json({
