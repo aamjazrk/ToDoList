@@ -28,7 +28,7 @@ password: zaq1@wsX
 ## Run Command
 - Run docker
 ```bash
-docker compose up
+docker compose up -- build
 docker compose down
 ```
 - Run prisma
