@@ -22,7 +22,7 @@ password: zaq1@wsX
 This repo is about create To-Do List web app that using Next.JS, Docker, Postgresql, Prisma, Cypress.
 
 ## Database Design 
-![Alt text](image-1.png)
+![Alt text](database.png)
 (https://prismaliser.app/)
 
 ## TECH STACK
