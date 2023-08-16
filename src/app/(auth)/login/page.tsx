@@ -3,8 +3,6 @@ import { Form as LoginForm } from './form'
 import { useSession } from 'next-auth/react';
 
 export default function LoginPage() {
-  // const { data: session } = useSession();
-  // localStorage.setItem('id',session.user.id)
   return (
     <div className="h-screen w-screen flex justify-center items-center bg-slate-100">
       <div className="sm:shadow-xl px-8 pb-8 pt-12 sm:bg-white rounded-xl space-y-12">

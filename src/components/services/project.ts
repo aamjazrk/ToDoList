@@ -1,12 +1,9 @@
 
 import { ProjectInterface } from "@/components/types/IProject";
-import { getServerSession} from "next-auth";
-import { useSession } from "next-auth/react";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 const baseUrl = 'http://localhost:3000';
 
 export const getAllbyUser = async (id:string) => {
-    // let id = localStorage.getItem('id')
     const res = await fetch(`${baseUrl}/api/project/getbyuser/${id}`, {
         method: 'GET',
         headers: {

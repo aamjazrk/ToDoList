@@ -73,8 +73,7 @@ export const Form = () => {
           style={{ color: 'black' }}
         />
       </div>
-      {/* {error && <Alert>{error}</Alert>} */}
-      <div className="w-full">
+      <div id='login-btn' className="w-full">
         <Button className="w-full" size="lg" >
           Login
         </Button>

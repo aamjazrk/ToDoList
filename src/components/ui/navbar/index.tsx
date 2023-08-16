@@ -34,10 +34,7 @@ export default function DefaultNavbar() {
           </div>
         </Navbar.Link>
         <Navbar.Link href="/project">
-          Project
-        </Navbar.Link>
-        <Navbar.Link href="/notebook">
-          Notebook
+          ToDo
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>

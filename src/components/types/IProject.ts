@@ -3,8 +3,9 @@ export type ProjectInterface = {
     Id: string;
     Title: string;
     Description: string;
+    CreatedAt:Date;
+    UpdatedAt:Date;
     Status: string;
     UserId: string;
-    Users: UserInterface;
   
   }

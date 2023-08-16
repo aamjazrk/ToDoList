@@ -1,34 +1,18 @@
-import { NextResponse } from "next/server"
 
-const allowedOrigins = process.env.NODE_ENV === 'production'
-    ? ['https://www.yoursite.com', 'https://yoursite.com']
-    : ['http://localhost:3000']
+import { withAuth } from "next-auth/middleware"
 
-export function middleware(request: Request) {
+export default withAuth(
+  // `withAuth` augments your `Request` with the user's token.
+  function middleware(req) {
+    console.log(req.nextauth.token)
+  },
+  {
+    callbacks: {
+        authorized({ req , token }) {
+          if(token) return true // If there is a token, the user is authenticated
+        }
+      }
+  }
+)
 
-    const origin = request.headers.get('origin')
-    console.log(origin)
-
-    if (origin && !allowedOrigins.includes(origin)) {
-        return new NextResponse(null, {
-            status: 400,
-            statusText: "Bad Request",
-            headers: {
-                'Content-Type': 'text/plain'
-            }
-        })
-    }
-
-    console.log('Middleware!')
-
-    console.log(request.method)
-    console.log(request.url)
-
-
-
-    return NextResponse.next()
-}
-
-export const config = {
-    matcher: ['/sirin'],
-}
+export const config = { matcher: ['/project/:path*', '/dashboard/:path*','/notebook/:path*'] }

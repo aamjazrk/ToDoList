@@ -15,7 +15,6 @@ export default function RootLayout({
   return (
 
     <html lang="en" data-theme="garden">
-{/* <html data-theme="dark"></html> */}
       <body >
         <DynamicNavbar />
         <Providers><div  id="root">{children}</div></Providers>

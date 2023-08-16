@@ -32,8 +32,7 @@ model User {
   CreatedAt DateTime   @default(now())
   UpdatedAt DateTime   @updatedAt
   Roles     Role       @default(Normal) // enum
-  Projects  Project[] // for mapping with userId foreignkey in Project table
-  Notebooks NoteBook[] // for mapping with userId foreignkey in NoteBook table
+  Projects  Project[] // for mapping with userId foreignkey in Project table 
 }
 
 model Project {
@@ -47,29 +46,5 @@ model Project {
   Users  User   @relation(fields: [UserId], references: [Id]) // declare relation foreignkey
   UserId String @db.Uuid // declare id foreignkey
 
-  ListToDos ListToDo[] // for mapping with projectId foreignkey in ListToDo table
 }
 
-model ListToDo {
-  Id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  Text      String?
-  CreatedAt DateTime   @default(now())
-  UpdatedAt DateTime   @updatedAt
-  Status    StatusTask @default(Open)
-  Color     String     @default("C09ACD")
-  Index     Int        @default(1)
-
-  Projects  Project @relation(fields: [ProjectId], references: [Id]) // declare relation foreignkey
-  ProjectId String  @db.Uuid // declare id foreignkey
-}
-
-model NoteBook {
-  Id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  Title     String
-  CreatedAt DateTime @default(now())
-  UpdatedAt DateTime @updatedAt
-  Text      String?
-
-  Users  User   @relation(fields: [UserId], references: [Id]) // declare relation foreignkey
-  UserId String @db.Uuid // declare id foreignkey
-}

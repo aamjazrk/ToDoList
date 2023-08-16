@@ -1,16 +1,13 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { PrismaAdapter } from "@auth/prisma-adapter";
-// next-auth.d.ts
 
-import { Session } from "next-auth";
 
 declare module "next-auth" {
   interface SessionTemp {
     user: {
       name?: string;
       email?: string;
-      role?: string; // Add the 'role' property here with the appropriate type
+      role?: string; // Add the 'role' 
     };
   }
 }

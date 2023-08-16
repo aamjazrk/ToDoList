@@ -1,12 +1,11 @@
 'use client';
 
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { toast,Toaster } from "react-hot-toast";
-// import { Alert } from '@/components/ui/alert'
 export const RegisterForm = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -85,9 +84,8 @@ export const RegisterForm = () => {
                     value={password}
                 />
             </div>
-            {/* {error && <Alert>{error}</Alert>} */}
             <div className="w-full">
-                <Button type="submit" className="w-full" size="lg">
+                <Button id='submit-btn' type="submit" className="w-full" size="lg">
                     Submit
                 </Button>
             </div>

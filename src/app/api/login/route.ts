@@ -17,7 +17,6 @@ export async function POST(req: NextRequest,res: NextResponse){
             }
         })
         if(!user){
-            // return res.status(401).json({message: 'User does not exist'})
             return NextResponse.json({message: 'User does not exist'},{status:401})
         }
         console.log("user exists");
@@ -37,13 +36,10 @@ export async function POST(req: NextRequest,res: NextResponse){
             email: user.Email,
             role: user.Roles
         }
-        //create token
-        // const token = await jwt.sign(payload, '123456', {expiresIn: "1h"})
 
         return NextResponse.json({
             message: "Login successful",
             success: true,
-            // accessToken: token,
             expiresIn: 3600000, // 1 hour in milliseconds
             status:200,
             user:payload
@@ -52,7 +48,7 @@ export async function POST(req: NextRequest,res: NextResponse){
 
     } catch (error) {
         console.log(error)
-        return NextResponse.json({message:'Internal Server Error',success:false},{status:500});
+        return NextResponse.json({message:'Internal Server Error',success:false,error:error},{status:500});
         
     }
 }

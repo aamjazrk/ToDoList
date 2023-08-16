@@ -1,7 +1,12 @@
 ## How to run
-- npm i (ignore patch error)
+- npm i 
 - npm run build
 - docker compose up --build
+
+## Test
+-  npx cypress open
+![Alt text](test1.png)
+![Alt text](test2.png)
 
 ## Login with
 email : sirinya@gmail.com
@@ -18,8 +23,6 @@ This repo is about create To-Do List web app that using Next.JS, Docker, Postgre
 ## Database Design 
 ![Alt text](image-1.png)
 (https://prismaliser.app/)
-
-Users have two roles which are NORMAL and PREMIUM. Normal users can only crate project and to-do list. On the other hand, premium users have some privilage to manage their own notebook for writing diary or something that they need.
 
 ## TECH STACK
 - docker

@@ -7,5 +7,5 @@ export const LoginButton = () => {
 }
 
 export const LogoutButton = () => {
-  return <button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })}>Sign Out</button>
+  return <button id='logout-btn' onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })}>Sign Out</button>
 }
