@@ -12,8 +12,9 @@
 email : sirinya@gmail.com
 password: zaq1@wsX
 
-### www://localhost:5555 -> see database
-### www://localhost:3000 -> see website
+## Usefully URL
+- www://localhost:5555 -> see database
+- www://localhost:3000 -> see website
 
 
 ## Getting Started
