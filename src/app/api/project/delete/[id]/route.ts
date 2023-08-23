@@ -16,7 +16,7 @@ export async function DELETE(req: Request , { params: { id } }: Props) {
             });
 
             if (!existingProject) {
-                return NextResponse.json({ error: 'Project not found' }, { status: 404 });
+                return NextResponse.json({ error: 'Project not found' }, { status: 400 });
             }
 
             await prisma.project.delete({

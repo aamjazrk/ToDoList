@@ -24,7 +24,7 @@ services:
       - .:/app
     depends_on:
       - postgres
-    entrypoint: sh -c "npm run dev"
+    entrypoint: sh -c "npm i && npm run build && npm run dev"
     command: npm run dev
     restart: unless-stopped
 
