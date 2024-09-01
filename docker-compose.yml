@@ -14,19 +14,19 @@ services:
     container_name: postgres
 
   
-  nextjs-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-    depends_on:
-      - postgres
-    entrypoint: sh -c "npm i && npm run build && npm run dev"
-    command: npm run dev
-    restart: unless-stopped
+  # nextjs-app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - postgres
+  #   entrypoint: sh -c "npm i && npm run build && npm run dev"
+  #   command: npm run dev
+  #   restart: unless-stopped
 
   prisma-postgres-api:
     build:

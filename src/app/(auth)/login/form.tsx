@@ -14,7 +14,7 @@ export const Form = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const searchParams = useSearchParams()
-  const callbackUrl = '/dashboard'
+  const callbackUrl = '/project'
   const [loading, setLoading] = React.useState(false);
   const { data: session } = useSession();
 
@@ -74,7 +74,7 @@ export const Form = () => {
         />
       </div>
       <div id='login-btn' className="w-full">
-        <Button className="w-full" size="lg" >
+        <Button placeholder='login-btn' className="w-full" size="lg" >
           Login
         </Button>
         

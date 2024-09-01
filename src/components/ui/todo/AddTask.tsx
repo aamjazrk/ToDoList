@@ -62,6 +62,7 @@ const AddTask=({setRefresh}) => {
         id='create-list'
         onClick={() => setModalOpen(true)}
         className='btn btn-primary w-full'
+        placeholder="AddNewProject"
       >
         Add new Project <AiOutlinePlus className='ml-2' size={18} />
       </button>
@@ -77,7 +78,7 @@ const AddTask=({setRefresh}) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type='text'
-                placeholder='titel'
+                placeholder='title'
                 className='input input-bordered w-full '
                 style={{ color: 'black' }}
               />

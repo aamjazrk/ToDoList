@@ -14,12 +14,12 @@ RUN npm rebuild bcrypt
 # Copy the rest of the application code
 COPY . .
 
-# Build the Next.js application
-RUN npm run build
+# # Build the Next.js application
+# RUN npm run build
 
 
-# Expose the port on which the Next.js app runs
-EXPOSE 3000
+# # Expose the port on which the Next.js app runs
+# EXPOSE 3000
 
-# Start the app
-CMD npm run dev
+# # Start the app
+# CMD npm run dev

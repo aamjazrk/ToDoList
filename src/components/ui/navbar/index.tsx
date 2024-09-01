@@ -33,7 +33,7 @@ export default function DefaultNavbar() {
             Dashboard
           </div>
         </Navbar.Link>
-        <Navbar.Link href="/project">
+        <Navbar.Link placeholder='navTodo' href="/project">
           ToDo
         </Navbar.Link>
       </Navbar.Collapse>
